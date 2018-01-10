@@ -26,6 +26,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
+import okio.Buffer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -127,20 +128,6 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
         cargarDetalle(movie);
     }
 
-    /*private ArrayList<Movie> getAllMovies() {
-        String pelis[] = {
-                "https://matydesign.files.wordpress.com/2009/10/imagenesbmx.jpg?w=240"
-        };
-
-        ArrayList<Movie> peliculas = new ArrayList<>();
-        for (int i=0; i<pelis.length;i++) {
-            Movie movie = new Movie();
-            movie.setUrl_image(pelis[i]);
-            peliculas.add(movie);
-        }
-        return peliculas;
-    }*/
-
     public static class LoggingInterceptor implements Interceptor {
         @Override public okhttp3.Response intercept(Chain chain) throws IOException {
 
@@ -177,7 +164,7 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
         }
     }
 
-    /*private static String bodyToString(final Request request) {
+    private static String bodyToString(final Request request) {
 
         try {
             final Request copy = request.newBuilder().build();
@@ -188,7 +175,7 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
         } catch (final IOException e) {
             return "did not work";
         }
-    }*/
+    }
 
     public interface EscuchaFragment {
         void selectMovie(Movie movie);

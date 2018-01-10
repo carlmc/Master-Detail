@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 
-import com.bumptech.glide.Glide;
 import com.example.cmunayll.masterdetail.models.Movie;
 import com.example.cmunayll.masterdetail.R;
 import com.squareup.picasso.Picasso;
@@ -48,12 +47,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 .error(R.mipmap.ic_launcher)
                 .into(holder.imageView);
 
-        /*Glide.with(layout)
-                .load(image)
-                .thumbnail(0.1f)
-                .centerCrop()
-                .error(R.mipmap.ic_launcher)
-                .into(holder.imageView);*/
     }
 
     @Override

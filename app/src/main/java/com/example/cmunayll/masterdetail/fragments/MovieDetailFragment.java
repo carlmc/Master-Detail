@@ -1,4 +1,4 @@
-package com.example.cmunayll.masterdetail;
+package com.example.cmunayll.masterdetail.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.cmunayll.masterdetail.R;
 import com.example.cmunayll.masterdetail.models.Movie;
 import com.squareup.picasso.Picasso;
 
