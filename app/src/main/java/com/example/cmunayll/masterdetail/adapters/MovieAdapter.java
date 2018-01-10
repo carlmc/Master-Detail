@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.cmunayll.masterdetail.models.Movie;
 import com.example.cmunayll.masterdetail.R;
 import com.squareup.picasso.Picasso;
@@ -25,10 +26,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     private Context layout;
     private static final String URL = "http://image.tmdb.org/t/p/w185";
     private OnItemClickListener escuchaClicks;
-    /*public MovieAdapter(List<Movie> movies, Context layout) {
-        this.movies = movies;
-        this.layout = layout;
-    }*/
+
     public MovieAdapter(Context context, OnItemClickListener escuchar) {
         this.layout = context;
         this.movies = new ArrayList<>();
@@ -37,7 +35,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(layout).inflate(R.layout.recycler_view_item, parent,false);
+        View view = LayoutInflater.from(layout).inflate(R.layout.item_movie_lista, parent,false);
         return new ViewHolder(view);
     }
 
@@ -49,6 +47,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 .load(image)
                 .error(R.mipmap.ic_launcher)
                 .into(holder.imageView);
+
+        /*Glide.with(layout)
+                .load(image)
+                .thumbnail(0.1f)
+                .centerCrop()
+                .error(R.mipmap.ic_launcher)
+                .into(holder.imageView);*/
     }
 
     @Override
@@ -56,9 +61,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         return (movies != null ? movies.size() : 0);
     }
 
-    private String obtenerIdMovie(int pos) {
+    private Movie obtenerIdMovie(int pos) {
         if (pos != RecyclerView.NO_POSITION) {
-            return movies.get(pos).getId();
+            return movies.get(pos);
         }
         else {
             return null;
@@ -91,6 +96,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     public interface OnItemClickListener {
-        void onClick(ViewHolder viewHolder, String idMovie);
+            void onClick(ViewHolder viewHolder, Movie movie);
     }
 }

@@ -42,7 +42,6 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Movie> movies;
-    //private List<Movie> movies;
     private MovieAdapter adapter;
 
     public static final String MOVIE_URL = "http://api.themoviedb.org/3/";
@@ -55,7 +54,7 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_rv, container, false);
+        view = inflater.inflate(R.layout.fragment_lista_movie, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -100,7 +99,7 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
         return view;
     }
 
-    /*@Override
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof EscuchaFragment) {
@@ -115,11 +114,17 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
     public void onDetach() {
         super.onDetach();
         escucha = null;
-    }*/
+    }
+
+    public void cargarDetalle(Movie movie) {
+        if (escucha != null) {
+            escucha.selectMovie(movie);
+        }
+    }
 
     @Override
-    public void onClick(MovieAdapter.ViewHolder viewHolder, String idMovie) {
-
+    public void onClick(MovieAdapter.ViewHolder viewHolder, Movie movie) {
+        cargarDetalle(movie);
     }
 
     /*private ArrayList<Movie> getAllMovies() {
@@ -186,7 +191,7 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
     }*/
 
     public interface EscuchaFragment {
-        void selectMovie(String idMovie);
+        void selectMovie(Movie movie);
     }
 
 }

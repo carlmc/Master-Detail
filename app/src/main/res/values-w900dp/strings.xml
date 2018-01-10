@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">MasterDetail</string>
-    <bool name="esTablet">false</bool>
+    <bool name="esTablet">true</bool>
 </resources>

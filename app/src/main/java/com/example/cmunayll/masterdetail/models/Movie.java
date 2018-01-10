@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.UUID;
 
 /**
  * Created by cmunayll on 05/01/2018.
@@ -13,7 +12,8 @@ import java.util.UUID;
 
 public class Movie implements Parcelable {
 
-    private String id;
+    @SerializedName("id")
+    private int idMovie;
     private String title;
     @SerializedName("poster_path")
     private String poster;
@@ -27,7 +27,7 @@ public class Movie implements Parcelable {
     }
 
     protected Movie(Parcel in) {
-        //this.id = generarID();
+        this.idMovie = in.readInt();
         this.title = in.readString();
         this.poster = in.readString();
         this.description = in.readString();
@@ -46,12 +46,8 @@ public class Movie implements Parcelable {
         }
     };
 
-    public String getId() {
-        return generarID();
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public int getIdMovie() {
+        return idMovie;
     }
 
     public String getTitle() {
@@ -66,24 +62,12 @@ public class Movie implements Parcelable {
         return poster;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getDate() {
         return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     @Override
@@ -93,19 +77,11 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        //parcel.writeString(this.id);
+        parcel.writeInt(this.idMovie);
         parcel.writeString(this.title);
         parcel.writeString(this.poster);
         parcel.writeString(this.description);
         parcel.writeString(this.date);
     }
-
-    private static String generarID() {
-        return UUID.randomUUID().toString();
-    }
-    /*public Movie(String url) {
-        this.url_image = url;
-    }*/
-
 
 }

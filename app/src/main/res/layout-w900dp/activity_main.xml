@@ -18,18 +18,37 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:gravity="center_vertical"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="320dp"
+                android:layout_marginStart="320dp"
+                android:src="@drawable/custom_item_layout"/>
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/contenedor_movie_lista"
+        android:layout_width="@dimen/ancho_panel_lista"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@android:color/white">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/contenedor_movie_detalle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/ancho_panel_lista"
+        android:layout_toRightOf="@id/contenedor_movie_lista"
         android:background="@android:color/white"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <include layout="@layout/item_movie_lista"/>
+        android:elevation="8dp">
 
     </FrameLayout>
 
