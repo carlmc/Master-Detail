@@ -13,6 +13,9 @@ import com.example.cmunayll.masterdetail.R;
 import com.example.cmunayll.masterdetail.models.Movie;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by cmunayll on 09/01/2018.
  */
@@ -22,6 +25,11 @@ public class MovieDetailFragment extends Fragment {
     private Movie movie;
     public static final String ID_MOVIE = "idMovie";
     public static final String MOVIE_URL = "http://image.tmdb.org/t/p/w185";
+
+    @BindView(R.id.titulo) TextView titulo;
+    @BindView(R.id.date) TextView date;
+    @BindView(R.id.description) TextView description;
+    @BindView(R.id.movie_image) ImageView imagen;
 
     public MovieDetailFragment() {
     }
@@ -40,19 +48,21 @@ public class MovieDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_detail_movie, container, false);
 
         if (movie != null) {
-            ((TextView) v.findViewById(R.id.titulo)).setText(movie.getTitle());
-            ((TextView) v.findViewById(R.id.date)).setText(movie.getDate());
-            ((TextView) v.findViewById(R.id.description)).setText(movie.getDescription());
+            ButterKnife.bind(this, v);
+
+            titulo.setText(movie.getTitle());
+            date.setText(movie.getDate());
+            description.setText(movie.getDescription());
             /*Picasso.with(getActivity())
                     .load(MOVIE_URL+movie.getPoster())
                     .error(R.mipmap.ic_launcher)
-                    .into((ImageView) v.findViewById(R.id.movie_image));*/
+                    .into(imagen);*/
 
             Glide.with(getActivity())
                     .load(MOVIE_URL+movie.getPoster())
                     .thumbnail(0.1f)
                     .error(R.mipmap.ic_launcher)
-                    .into((ImageView) v.findViewById(R.id.movie_image));
+                    .into(imagen);
         }
 
         return v;

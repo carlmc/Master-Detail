@@ -15,6 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by cmunayll on 05/01/2018.
  */
@@ -22,30 +25,31 @@ import java.util.List;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     private List<Movie> movies;
-    private Context layout;
+    private Context context;
     private static final String URL = "http://image.tmdb.org/t/p/w185";
     private OnItemClickListener escuchaClicks;
 
     public MovieAdapter(Context context, OnItemClickListener escuchar) {
-        this.layout = context;
+        this.context = context;
         this.movies = new ArrayList<>();
         this.escuchaClicks = escuchar;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(layout).inflate(R.layout.item_movie_lista, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_movie_lista, parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Movie movie = movies.get(position);
-        String image = URL + movie.getPoster();
-        Picasso.with(layout)
-                .load(image)
+        String image_url = URL + movie.getPoster();
+        Picasso.with(context)
+                .load(image_url)
                 .error(R.mipmap.ic_launcher)
-                .into(holder.imageView);
+                .placeholder(R.mipmap.load)
+                .into(holder.imagen);
 
     }
 
@@ -71,12 +75,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView imageView;
+        @BindView(R.id.poster) ImageView imagen;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setClickable(true);
-            imageView = itemView.findViewById(R.id.imageView);
+            ButterKnife.bind(this, itemView);
 
             itemView.setOnClickListener(this);
         }

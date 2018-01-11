@@ -8,12 +8,18 @@
     android:orientation="vertical"
     tools:context=".fragments.MovieDetailFragment">
 
-    <ImageView
-        android:id="@+id/movie_image"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="50"
-        android:scaleType="centerCrop" />
+        android:layout_weight="60">
+
+        <ImageView
+            android:id="@+id/movie_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,7 +54,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="50"
+        android:layout_weight="30"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/margen_estandar"
         android:paddingTop="@dimen/margen_estandar"
@@ -72,11 +78,45 @@
                 android:paddingLeft="@dimen/margen_izquierda_contenido"
                 android:paddingRight="@dimen/margen_estandar"
                 android:paddingStart="@dimen/margen_izquierda_contenido"
-                android:text="content"
+                android:text="@null"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         </android.support.v7.widget.CardView>
 
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <com.github.ivbaranov.mfb.MaterialFavoriteButton
+            android:id="@+id/boton_favorite"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="144dp"
+            android:layout_marginRight="144dp"
+            android:background="#FFFFFF"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="31dp"
+            android:layout_marginStart="31dp"
+            android:text="Agregar a Favoritos"
+            android:background="#FFFFFF"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>

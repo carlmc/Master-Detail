@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.cmunayll.masterdetail.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <!--<android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>-->
 
     <FrameLayout
         android:id="@+id/contenedor_movie_lista"
@@ -29,7 +29,7 @@
         android:background="@android:color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/item_movie_lista"/>
+        <!--<include layout="@layout/item_movie_lista"/>-->
 
     </FrameLayout>
 

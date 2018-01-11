@@ -18,7 +18,6 @@ import com.example.cmunayll.masterdetail.interfaces.MovieInterface;
 import com.example.cmunayll.masterdetail.models.Movie;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
@@ -42,7 +41,6 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
     private View view;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Movie> movies;
     private MovieAdapter adapter;
 
     public static final String MOVIE_URL = "http://api.themoviedb.org/3/";
@@ -144,7 +142,7 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
             //YLog.d(String.format("Sending request %s on %s%n%s",
             //        request.url(), chain.connection(), request.headers()));
             if(request.method().compareToIgnoreCase("post")==0){
-                requestLog ="\n"+requestLog+"\n"+"";
+                requestLog ="\n"+requestLog+"\n"+bodyToString(request);
             }
             Log.d("TAG","request"+"\n"+requestLog);
 
