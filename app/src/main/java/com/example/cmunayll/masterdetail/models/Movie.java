@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
 
 
 /**
@@ -13,13 +14,18 @@ import com.google.gson.annotations.SerializedName;
 public class Movie implements Parcelable {
 
     @SerializedName("id")
+    @DatabaseField(generatedId = true)
     private int idMovie;
+    @DatabaseField
     private String title;
     @SerializedName("poster_path")
+    @DatabaseField
     private String poster;
     @SerializedName("overview")
+    @DatabaseField
     private String description;
     @SerializedName("release_date")
+    @DatabaseField
     private String date;
 
     public Movie() {

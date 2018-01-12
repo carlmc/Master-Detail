@@ -92,14 +92,14 @@
 
         <com.github.ivbaranov.mfb.MaterialFavoriteButton
             android:id="@+id/boton_favorite"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="144dp"
             android:layout_marginRight="144dp"
-            android:background="#FFFFFF"
+            android:background="@android:color/holo_blue_dark"
             android:gravity="center" />
 
         <TextView
