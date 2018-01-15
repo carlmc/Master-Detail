@@ -3,6 +3,7 @@ package com.example.cmunayll.masterdetail.fragments;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,7 @@ import com.example.cmunayll.masterdetail.models.Movie;
 import com.example.cmunayll.masterdetail.orm.MovieDataHelper;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.squareup.picasso.Picasso;
+import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 
@@ -63,10 +63,6 @@ public class MovieDetailFragment extends Fragment {
             titulo.setText(movie.getTitle());
             date.setText(movie.getDate());
             description.setText(movie.getDescription());
-            /*Picasso.with(getActivity())
-                    .load(MOVIE_URL+movie.getPoster())
-                    .error(R.mipmap.ic_launcher)
-                    .into(imagen);*/
 
             Glide.with(getActivity())
                     .load(MOVIE_URL+movie.getPoster())
@@ -75,27 +71,54 @@ public class MovieDetailFragment extends Fragment {
                     .into(imagen);
         }
 
-        movieDataHelper = OpenHelperManager.getHelper(getActivity(), MovieDataHelper.class);
-
         favoriteButton.setOnFavoriteChangeListener(new MaterialFavoriteButton.OnFavoriteChangeListener() {
             @Override
             public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
-                if (favorite) {
-                    //movie = new Movie();
 
+                if (favorite) {
 
                     try {
-                        movieDataHelper.getMovies();
+                        Dao<Movie, Integer> movieDao = getHelper().getMovieDao();
+                        movieDao.create(movie);
+                        Log.i(MovieDataHelper.class.getName(), "Se agregó a favoritos!");
                     } catch (SQLException e) {
+                        Log.e(MovieDataHelper.class.getName(), "No se agregó a favoritos!", e);
                         e.printStackTrace();
                     }
                     Snackbar.make(buttonView, "Added to Favorite",
                             Snackbar.LENGTH_SHORT).show();
                 }
+                else {
+                    try {
+                        Dao<Movie, Integer> movieDao2 = getHelper().getMovieDao();
+                        movieDao2.delete(movie);
+                        Log.i(MovieDataHelper.class.getName(), "Se eliminó de favoritos!");
+                    } catch (SQLException e) {
+                        Log.e(MovieDataHelper.class.getName(), "No se pudo eliminar!");
+                        e.printStackTrace();
+                    }
+                    Snackbar.make(buttonView, "Removed from Favorite", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
 
         return v;
+    }
+
+    private MovieDataHelper getHelper() {
+        if (movieDataHelper == null) {
+            movieDataHelper = OpenHelperManager.getHelper(getActivity(), MovieDataHelper.class);
+        }
+        return movieDataHelper;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (movieDataHelper != null) {
+            OpenHelperManager.releaseHelper();
+            movieDataHelper = null;
+        }
     }
 
 }

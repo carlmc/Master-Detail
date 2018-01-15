@@ -1,0 +1,26 @@
+#
+# generated on 2018/01/15 10:42:53
+#
+# --table-start--
+dataClass=com.example.cmunayll.masterdetail.models.Movie
+tableName=movie
+# --table-fields-start--
+# --field-start--
+fieldName=idMovie
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=title
+# --field-end--
+# --field-start--
+fieldName=poster
+# --field-end--
+# --field-start--
+fieldName=description
+# --field-end--
+# --field-start--
+fieldName=date
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

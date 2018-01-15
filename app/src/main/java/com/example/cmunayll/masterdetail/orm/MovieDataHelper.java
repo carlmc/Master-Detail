@@ -13,7 +13,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
-import java.util.concurrent.TimeoutException;
+import java.util.List;
 
 /**
  * Created by cmunayll on 11/01/2018.
@@ -29,7 +29,7 @@ public class MovieDataHelper extends OrmLiteSqliteOpenHelper {
     private RuntimeExceptionDao<Movie, Integer> runtimeExceptionDao = null;
 
     public MovieDataHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
         this.context = context;
     }
 
@@ -52,25 +52,21 @@ public class MovieDataHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public void addFavorite(Movie movie) {
-        try {
-            movies.create(movie);
-            Log.i(MovieDataHelper.class.getName(), "Se agrego a favoritos!");
-        } catch (SQLException e) {
-            Log.e(MovieDataHelper.class.getName(), "No se agrego a favoritos!", e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Dao<Movie, Integer> getMovies() throws SQLException {
+    public Dao<Movie, Integer> getMovieDao() throws SQLException {
         if (movies == null) {
             movies = getDao(Movie.class);
-            Log.i(MovieDataHelper.class.getName(), "Se agrego a favoritos!");
+            Log.i(MovieDataHelper.class.getName(), "DAO!");
         }
         return movies;
     }
 
-    public RuntimeExceptionDao<Movie, Integer> getMoviesDao() {
+    public List<Movie> getMovies() throws SQLException {
+        Dao<Movie, Integer> dao=getMovieDao();
+        List<Movie> lista = dao.queryForAll();
+        return lista;
+    }
+
+    public RuntimeExceptionDao<Movie, Integer> getMovieDaoRuntime() {
         if (runtimeExceptionDao == null) {
             runtimeExceptionDao = getRuntimeExceptionDao(Movie.class);
         }

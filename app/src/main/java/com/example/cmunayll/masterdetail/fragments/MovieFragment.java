@@ -66,7 +66,6 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
                 break;
         }
 
-
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new MovieAdapter(getActivity(),this);
@@ -139,8 +138,7 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
             long t1 = System.nanoTime();
             String requestLog = String.format("Sending request %s on %s%n%s",
                     request.url(), chain.connection(), request.headers());
-            //YLog.d(String.format("Sending request %s on %s%n%s",
-            //        request.url(), chain.connection(), request.headers()));
+
             if(request.method().compareToIgnoreCase("post")==0){
                 requestLog ="\n"+requestLog+"\n"+bodyToString(request);
             }
@@ -167,7 +165,7 @@ public class MovieFragment extends Fragment implements MovieAdapter.OnItemClickL
         try {
             final Request copy = request.newBuilder().build();
             final Buffer buffer = new Buffer();
-            if (copy != null && copy.body() != null) // make sure its not null to avoif NPE
+            if (copy != null && copy.body() != null)
                 copy.body().writeTo(buffer);
             return buffer.readUtf8();
         } catch (final IOException e) {
