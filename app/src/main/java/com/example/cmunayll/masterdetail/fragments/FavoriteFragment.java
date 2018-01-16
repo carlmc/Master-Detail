@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.cmunayll.masterdetail.R;
 import com.example.cmunayll.masterdetail.adapters.MovieAdapter;
@@ -20,9 +19,6 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-
 
 /**
  * Created by cmunayll on 15/01/2018.
@@ -37,8 +33,6 @@ public class FavoriteFragment extends Fragment implements MovieAdapter.OnItemCli
 
     private MovieDataHelper movieDataHelper = null;
     List<Movie> peliculas;
-
-    @BindView(R.id.movie_image) ImageView imagen;
 
     public FavoriteFragment() {
 

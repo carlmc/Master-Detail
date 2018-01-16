@@ -16,6 +16,7 @@ import com.example.cmunayll.masterdetail.fragments.FavoriteFragment;
 import com.example.cmunayll.masterdetail.fragments.MovieDetailFragment;
 import com.example.cmunayll.masterdetail.fragments.MovieFragment;
 import com.example.cmunayll.masterdetail.models.Movie;
+import com.f2prateek.dart.HensonNavigable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.Esc
             Intent intent = new Intent(this, MovieDetailActivity.class);
             intent.putExtra(MovieDetailFragment.ID_MOVIE, movie);
             startActivity(intent);
+            //Intent intent = HensonNavigable.gotoMovieDetailActivity().build();
         }
     }
 
@@ -87,7 +89,13 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.Esc
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                //Intent intent = new Intent(this, SettingsActivity.class);
+                //startActivity(intent);
+                Intent intent = Henson.with(MainActivity.this)
+                        .gotoSettingsActivity()
+                        .isSuccess(true)
+                        .build();
+
                 startActivity(intent);
                 return true;
             default:
