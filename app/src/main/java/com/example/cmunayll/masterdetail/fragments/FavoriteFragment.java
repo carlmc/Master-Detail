@@ -9,12 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cmunayll.masterdetail.R;
 import com.example.cmunayll.masterdetail.adapters.MovieAdapter;
 import com.example.cmunayll.masterdetail.models.Movie;
 import com.example.cmunayll.masterdetail.orm.MovieDataHelper;
+import com.example.cmunayll.masterdetail.otto.EventosBus;
+import com.example.cmunayll.masterdetail.otto.GBus;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -67,8 +71,19 @@ public class FavoriteFragment extends Fragment implements MovieAdapter.OnItemCli
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        GBus.getBus().register(this);
+    }
+
+    @Override
     public void onClick(MovieAdapter.ViewHolder viewHolder, Movie movie) {
 
+    }
+
+    @Subscribe
+    public void getMessage(EventosBus.MainFavoriteMessage mainFavoriteMessage) {
+        Toast.makeText(getActivity(), "Mensaje recibido del Main "+" "+mainFavoriteMessage.getMensaje(), Toast.LENGTH_SHORT).show();
     }
 
     private MovieDataHelper getHelper() {
@@ -98,5 +113,11 @@ public class FavoriteFragment extends Fragment implements MovieAdapter.OnItemCli
                 adapter.setMovieList(peliculas);
             }
         }.execute();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        GBus.getBus().unregister(this);
     }
 }

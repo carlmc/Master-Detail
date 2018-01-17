@@ -16,7 +16,10 @@ import com.example.cmunayll.masterdetail.fragments.FavoriteFragment;
 import com.example.cmunayll.masterdetail.fragments.MovieDetailFragment;
 import com.example.cmunayll.masterdetail.fragments.MovieFragment;
 import com.example.cmunayll.masterdetail.models.Movie;
+import com.example.cmunayll.masterdetail.otto.EventosBus;
+import com.example.cmunayll.masterdetail.otto.GBus;
 import com.f2prateek.dart.HensonNavigable;
+import com.squareup.otto.Produce;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.Esc
     private Movie movie;
     private static final String LOG_TAG = MovieAdapter.class.getName();
 
-    @BindView(R.id.fab) FloatingActionButton floa;
+    @BindView(R.id.fab) FloatingActionButton flota;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +39,7 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.Esc
 
         ButterKnife.bind(this);
 
-        floa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                verFavoritos();
-            }
-        });
+        setClickListener();
 
         if (findViewById(R.id.contenedor_movie_detalle) != null) {
             dosPanels = true;
@@ -53,6 +51,22 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.Esc
                 .beginTransaction()
                 .replace(R.id.contenedor_movie_lista, new MovieFragment())
                 .commit();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GBus.getBus().register(this);
+    }
+
+    private void setClickListener() {
+        flota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                verFavoritos();
+                sendMessageToFavorite();
+            }
+        });
     }
 
     private void cargarFragmentDetail(Movie id) {
@@ -75,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.Esc
             Intent intent = new Intent(this, MovieDetailActivity.class);
             intent.putExtra(MovieDetailFragment.ID_MOVIE, movie);
             startActivity(intent);
-            //Intent intent = HensonNavigable.gotoMovieDetailActivity().build();
         }
     }
 
@@ -132,6 +145,16 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.Esc
                 .beginTransaction()
                 .replace(R.id.contenedor_movie_lista, new FavoriteFragment())
                 .commit();
+    }
 
+    private void sendMessageToFavorite() {
+        EventosBus.MainFavoriteMessage mainFavoriteMessage = new EventosBus.MainFavoriteMessage("Enviando Favoritos");
+        GBus.getBus().post(mainFavoriteMessage);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GBus.getBus().unregister(this);
     }
 }
